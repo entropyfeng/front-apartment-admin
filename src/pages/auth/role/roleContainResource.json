@@ -1,0 +1,76 @@
+{
+  "success": true,
+  "msg": null,
+  "code": null,
+  "subCode": null,
+  "params": {
+    "resourceNames": [
+      "userRegister",
+      "userLogin",
+      "userForgetPassword",
+      "allRoles"
+    ],
+    "authResources": [
+      {
+        "authResourceId": 1,
+        "authResourceName": "userRegister",
+        "description": null,
+        "path": "/user/register",
+        "method": "POST",
+        "status": null,
+        "createTime": "2020-10-21 16:45:09",
+        "updateTime": "2020-10-21 16:45:09"
+      },
+      {
+        "authResourceId": 2,
+        "authResourceName": "userLogin",
+        "description": null,
+        "path": "/user/login",
+        "method": "POST",
+        "status": null,
+        "createTime": "2020-10-21 16:45:09",
+        "updateTime": "2020-10-21 16:45:09"
+      },
+      {
+        "authResourceId": 3,
+        "authResourceName": "userForgetPassword",
+        "description": null,
+        "path": "/user/forget",
+        "method": "PATCH",
+        "status": null,
+        "createTime": "2020-10-21 16:45:09",
+        "updateTime": "2020-10-21 16:45:09"
+      },
+      {
+        "authResourceId": 5,
+        "authResourceName": "allRoles",
+        "description": null,
+        "path": "/all/roles",
+        "method": "GET",
+        "status": null,
+        "createTime": "2020-10-21 16:45:09",
+        "updateTime": "2020-10-21 16:45:09"
+      },
+      {
+        "authResourceId": 6,
+        "authResourceName": "allUsers",
+        "description": null,
+        "path": "/all/users",
+        "method": "GET",
+        "status": null,
+        "createTime": "2020-10-21 16:45:09",
+        "updateTime": "2020-10-21 16:45:09"
+      },
+      {
+        "authResourceId": 7,
+        "authResourceName": "allResources",
+        "description": null,
+        "path": "/all/resources",
+        "method": "GET",
+        "status": null,
+        "createTime": "2020-10-21 16:45:09",
+        "updateTime": "2020-10-21 16:45:09"
+      }
+    ]
+  }
+}
