@@ -1,18 +1,18 @@
 import React from 'react';
-import {  PageHeaderWrapper } from '@ant-design/pro-layout';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
-import type {ProColumns} from '@ant-design/pro-table';
+import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {CampusItem} from "@/pages/apartment/admin/campus/data";
-import {queryAllCampus} from "@/pages/apartment/admin/campus/service";
-import type {DormitoryItem} from "@/pages/apartment/admin/dormitory/data";
+import type { DormitoryItem } from '@/pages/apartment/admin/dormitory/data';
+import { queryAllDormitories } from '@/pages/apartment/admin/dormitory/service';
 
 const columns: ProColumns<DormitoryItem>[] = [
   {
     key: 'dormitoryId',
-    title: '名称',
+    title: 'ID',
     dataIndex: 'dormitoryId',
     hideInForm: true,
+    search: false,
   },
   {
     key: 'campusName',
@@ -57,65 +57,65 @@ const columns: ProColumns<DormitoryItem>[] = [
     hideInForm: true,
   },
   {
-    key:'hasElevator',
-    title:'电梯',
-    dataIndex:'hasElevator',
+    key: 'hasElevator',
+    title: '电梯',
+    dataIndex: 'hasElevator',
     valueEnum: {
       true: {
-        text:'有电梯',
+        text: '有电梯',
         status: true,
       },
       false: {
-        text:'无电梯',
+        text: '无电梯',
         status: false,
       },
     },
   },
   {
-    key:'inGender',
-    title:'入住性别',
-    dataIndex:'inGender',
+    key: 'inGender',
+    title: '入住性别',
+    dataIndex: 'inGender',
     valueEnum: {
-      'MAN': {
-        text:'男',
+      MAN: {
+        text: '男',
         status: 'MAN',
       },
-      'WOMAN': {
-        text:'女',
+      WOMAN: {
+        text: '女',
         status: 'WOMAN',
       },
-      'MIX': {
-        text:'混合',
+      MIX: {
+        text: '混合',
         status: 'MIX',
       },
-      'UNKNOWN': {
+      UNKNOWN: {
         text: '未知',
         status: 'UNKNOWN',
       },
     },
   },
   {
-    key:'dormitoryDirection',
-    title:'朝向',
-    dataIndex:'dormitoryDirection',
+    key: 'dormitoryDirection',
+    title: '朝向',
+    dataIndex: 'dormitoryDirection',
     valueEnum: {
-      'WEST': {
-        text:'西',
+      WEST: {
+        text: '西',
         status: 'WEST',
       },
-      'EAST': {
-        text:'东',
+      EAST: {
+        text: '东',
         status: 'EAST',
       },
-      'NORTH': {
-        text:'北',
+      NORTH: {
+        text: '北',
         status: 'NORTH',
       },
-      'SOUTH': {
-        text:'南',
+      SOUTH: {
+        text: '南',
         status: 'SOUTH',
       },
-      'UNKNOWN': {
+      UNKNOWN: {
         text: '未知',
         status: 'UNKNOWN',
       },
@@ -127,11 +127,13 @@ const columns: ProColumns<DormitoryItem>[] = [
     dataIndex: 'updateTime',
     hideInForm: true,
     valueType: 'dateTime',
+    search: false,
   },
   {
     key: 'description',
     title: '描述',
     dataIndex: 'description',
+    search: false,
   },
   {
     key: 'createTime',
@@ -139,30 +141,25 @@ const columns: ProColumns<DormitoryItem>[] = [
     dataIndex: 'createTime',
     hideInForm: true,
     valueType: 'dateTime',
-  }
-
+    search: false,
+  },
 ];
 
 const CampusAdmin: React.FC = () => {
-
-
   return (
     <PageHeaderWrapper>
       <ProTable<DormitoryItem>
-
         search={{
           layout: 'vertical',
           defaultCollapsed: false,
         }}
-        rowKey="campusName"
-        headerTitle="校区管理"
+        rowKey="dormitoryId"
+        headerTitle="公寓管理"
         columns={columns}
-        request={() => queryAllCampus()}
+        request={() => queryAllDormitories()}
       />
     </PageHeaderWrapper>
-
   );
-
 };
 
 export default CampusAdmin;

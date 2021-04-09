@@ -1,12 +1,9 @@
-import request from "umi-request";
+import request from 'umi-request';
 
-export async function queryAllCampus(){
-
-  return request('/api/apartment/campus/all').then(res=>({
-
-    data: res.data.campuses,
-    total: res.data.campuses.length,
-    success: res.success
-  }))
-
+export async function queryAllDormitories() {
+  return request('/api/apartment/dormitory/all').then((res) => ({
+    data: res.data.dormitories,
+    total: res.data.dormitories.length,
+    success: res.success,
+  }));
 }
