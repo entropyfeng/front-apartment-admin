@@ -34,6 +34,23 @@ declare namespace API {
     username?: string;
   };
 
+  type DormitoryVO = {
+    buildingName?: string;
+    campusGroupName?: string;
+    campusName?: string;
+    createTime?: string;
+    currentCapacity?: number;
+    description?: string;
+    dormitoryDirection?: string;
+    dormitoryId?: string;
+    dormitoryName?: string;
+    floor?: number;
+    hasElevator?: boolean;
+    inGender?: string;
+    totalCapacity?: number;
+    updateTime?: string;
+  };
+
   type LoginTo = {
     autoLogin?: boolean;
     password?: string;

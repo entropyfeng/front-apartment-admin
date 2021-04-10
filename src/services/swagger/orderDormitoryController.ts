@@ -8,9 +8,6 @@ export async function acquireAvailableBuildingsNameUsingGET(
     // query
     /** campusGroupName */
     campusGroupName: string;
-    roles?: string[];
-    userId?: number;
-    userName?: string;
   },
   options?: { [key: string]: any },
 ) {
@@ -24,20 +21,9 @@ export async function acquireAvailableBuildingsNameUsingGET(
 }
 
 /** acquireAvailableCampusName GET /api/apartment/university/available/campus/names */
-export async function acquireAvailableCampusNameUsingGET(
-  params: {
-    // query
-    roles?: string[];
-    userId?: number;
-    userName?: string;
-  },
-  options?: { [key: string]: any },
-) {
+export async function acquireAvailableCampusNameUsingGET(options?: { [key: string]: any }) {
   return request<API.Message>('/api/apartment/university/available/campus/names', {
     method: 'GET',
-    params: {
-      ...params,
-    },
     ...(options || {}),
   });
 }
@@ -48,9 +34,6 @@ export async function acquireAvailableCampusGroupNameUsingGET(
     // query
     /** campusName */
     campusName: string;
-    roles?: string[];
-    userId?: number;
-    userName?: string;
   },
   options?: { [key: string]: any },
 ) {
@@ -69,9 +52,6 @@ export async function acquireAvailableDormitoryUsingGET(
     // query
     /** buildingName */
     buildingName: string;
-    roles?: string[];
-    userId?: number;
-    userName?: string;
   },
   options?: { [key: string]: any },
 ) {
