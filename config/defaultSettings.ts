@@ -16,7 +16,7 @@ const Settings: LayoutSettings & {
   title: '公寓管理系统',
   pwa: false,
   authTokenName:'auth_token',
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo: '/logo.svg',
   iconfontUrl: '',
 };
 

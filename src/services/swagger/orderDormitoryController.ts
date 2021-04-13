@@ -2,8 +2,8 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** acquireAvailableBuildingsName GET /api/apartment/university/available/building/names */
-export async function acquireAvailableBuildingsNameUsingGET(
+/** acquireAvailableBuildingNames GET /api/apartment/university/available/building/names */
+export async function acquireAvailableBuildingNamesUsingGET(
   params: {
     // query
     /** campusGroupName */
@@ -20,16 +20,16 @@ export async function acquireAvailableBuildingsNameUsingGET(
   });
 }
 
-/** acquireAvailableCampusName GET /api/apartment/university/available/campus/names */
-export async function acquireAvailableCampusNameUsingGET(options?: { [key: string]: any }) {
+/** acquireAvailableCampusNames GET /api/apartment/university/available/campus/names */
+export async function acquireAvailableCampusNamesUsingGET(options?: { [key: string]: any }) {
   return request<API.Message>('/api/apartment/university/available/campus/names', {
     method: 'GET',
     ...(options || {}),
   });
 }
 
-/** acquireAvailableCampusGroupName GET /api/apartment/university/available/campusGroup/names */
-export async function acquireAvailableCampusGroupNameUsingGET(
+/** acquireAvailableCampusGroupNames GET /api/apartment/university/available/campusGroup/names */
+export async function acquireAvailableCampusGroupNamesUsingGET(
   params: {
     // query
     /** campusName */
