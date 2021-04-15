@@ -61,6 +61,7 @@ declare namespace API {
   type Message = {
     code?: number;
     data?: Record<string, any>;
+    errorCode?: string;
     errorMessage?: string;
     msg?: string;
     subCode?: number;

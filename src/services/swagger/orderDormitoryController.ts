@@ -30,6 +30,14 @@ export async function checkOutMyDormitoryUsingPOST(options?: { [key: string]: an
   });
 }
 
+/** acquireMyDormitoryStatus GET /api/apartment/my/status */
+export async function acquireMyDormitoryStatusUsingGET(options?: { [key: string]: any }) {
+  return request<API.Message>('/api/apartment/my/status', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** acquireAvailableBuildingNames GET /api/apartment/university/available/building/names */
 export async function acquireAvailableBuildingNamesUsingGET(
   params: {

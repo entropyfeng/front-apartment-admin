@@ -5,9 +5,7 @@ import { FormattedMessage, connect } from 'umi';
 import { GridContent } from '@ant-design/pro-layout';
 import { Menu } from 'antd';
 import BaseView from './components/base';
-import BindingView from './components/binding';
 import type { CurrentUser } from './data.d';
-import NotificationView from './components/notification';
 import SecurityView from './components/security';
 import styles from './style.less';
 
@@ -18,7 +16,7 @@ interface SettingsProps {
   currentUser: CurrentUser;
 }
 
-type SettingsStateKeys = 'base' | 'security' | 'binding' | 'notification';
+type SettingsStateKeys = 'base' | 'security' ;
 interface SettingsState {
   mode: 'inline' | 'horizontal';
   menuMap: {
@@ -40,18 +38,6 @@ class Settings extends Component<SettingsProps, SettingsState> {
         <FormattedMessage
           id="accountandsettings.menuMap.security"
           defaultMessage="Security Settings"
-        />
-      ),
-      binding: (
-        <FormattedMessage
-          id="accountandsettings.menuMap.binding"
-          defaultMessage="Account Binding"
-        />
-      ),
-      notification: (
-        <FormattedMessage
-          id="accountandsettings.menuMap.notification"
-          defaultMessage="New Message Notification"
         />
       ),
     };
@@ -120,10 +106,6 @@ class Settings extends Component<SettingsProps, SettingsState> {
         return <BaseView />;
       case 'security':
         return <SecurityView />;
-      case 'binding':
-        return <BindingView />;
-      case 'notification':
-        return <NotificationView />;
       default:
         break;
     }

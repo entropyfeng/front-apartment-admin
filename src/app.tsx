@@ -110,13 +110,16 @@ const codeMessage = {
  */
 const errorHandler = (error: ResponseError) => {
 
-  const { response } = error;
-  if (response.status===401){
+  if (error.name==='BizError'){
+   const msg= error.data;
     notification.error({
-      message: `权限不足`,
+      message: `请求错误 `,
+      description: msg.msg,
     });
-    return;
+
+    throw error;
   }
+  const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;

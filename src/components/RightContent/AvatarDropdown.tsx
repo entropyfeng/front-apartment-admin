@@ -7,6 +7,7 @@ import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 import { outLogin } from '@/services/ant-design-pro/api';
 import Settings from '../../../config/defaultSettings';
+
 export type GlobalHeaderRightProps = {
   menu?: boolean;
 };

@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { DormitoryItem } from '@/pages/apartment/admin/dormitory/data';
 import { Descriptions, message, Modal } from 'antd';
 import { useRequest } from '@@/plugin-request/request';
 import { acquireDetailDormitoryUsingGET } from '@/services/swagger/dormitoryController';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { FormattedMessage } from 'umi';
-import { FormValueType } from '@/pages/TableList/components/UpdateForm';
-import { updateRule } from '@/services/ant-design-pro/api';
 import { checkInMyDormitoryUsingPOST } from '@/services/swagger/orderDormitoryController';
+import { Access, useAccess } from '@@/plugin-access/access';
 
 interface DetailDormitoryProps {
   modalVisible: boolean;
@@ -37,25 +35,25 @@ const handle=(studentId: string)=>{
     return null;
 
 }
-const checkInMyDormitory = async (dormitoryId: number,bedId:number) => {
+const checkInMyDormitory = async (dormitoryId: number,bedId: number) => {
   const hide = message.loading('正在预定');
   try {
-    await checkInMyDormitoryUsingPOST({dormitoryId,bedId})
+    await  checkInMyDormitoryUsingPOST({dormitoryId,bedId});
 
     hide();
-
     message.success('入住成功');
     return true;
   } catch (error) {
     hide();
-    message.error('配置失败请重试！');
+    message.error('入住失败！');
     return false;
   }
 };
 
 const DetailDormitory: React.FC<DetailDormitoryProps> = (props) => {
-  const [showDetail, setShowDetail] = useState<boolean>(false);
-  const [currentRow,setCurrentRow]=useState<StudentResidentItem>();
+
+  const { modalVisible, onCancel, values } = props;
+  const access = useAccess();
   const columns: ProColumns<StudentResidentItem>[] = [
     {
       title: '床位号',
@@ -123,20 +121,22 @@ const DetailDormitory: React.FC<DetailDormitoryProps> = (props) => {
       valueType: 'option',
       render: (_, record) => [
 
-        <a
-          onClick={()=>{
-            setCurrentRow(record);
+        // @ts-ignore
+        <Access key="controlAccess" accessible={access.canOnlyStudent}>
+          <a
+            onClick={()=>{
+              // @ts-ignore
+              checkInMyDormitory(parseInt(values.dormitoryId,10) ,record.bedId);
+            }}
+            key="config"
+          >{handle(record.studentId)}
+          </a>
+        </Access>
 
-           const res= checkInMyDormitory(parseInt(values.dormitoryId,10) ,record.bedId);
-           if (res){}
-          }}
-          key="config"
-        >{handle(record.studentId)}
-        </a>,
       ],
     }
   ];
-  const { modalVisible, onCancel, values } = props;
+
   const { data, error, loading } = useRequest(() => {
     // @ts-ignore
     return acquireDetailDormitoryUsingGET({ dormitoryId: values.dormitoryId });

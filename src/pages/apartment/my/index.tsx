@@ -6,6 +6,7 @@ import { useRequest } from '@@/plugin-request/request';
 import { acquireMyDormitoryUsingGET } from '@/services/swagger/dormitoryController';
 import { Descriptions } from 'antd';
 import { convertDirection } from '@/utils/myUtil';
+import { checkOutMyDormitoryUsingPOST } from '@/services/swagger/orderDormitoryController';
 
 
 export type StudentResidentItem = {
@@ -21,70 +22,9 @@ export type StudentResidentItem = {
   studentName: string;
 
 }
-const columns: ProColumns<StudentResidentItem>[] = [
-  {
-    title: '床位号',
-    dataIndex: 'bedId',
-    key:'bedId'
-  },
-  {
-    title: '学生姓名',
-    dataIndex: 'studentName',
-    key: 'studentName',
-  },
-  {
-    title: '学号',
-    dataIndex: 'studentId',
-    key: 'studentId',
-  }, {
-    title: '学院',
-    dataIndex: 'collegeName',
-    key: 'collegeName',
-  },
-  {
-    title: '邮箱',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: '电话',
-    dataIndex: 'phone',
-    key: 'phone',
-  },{
-    title:'性别',
-    dataIndex: 'gender',
-    key:'gender',
-    valueEnum: {
-      MAN: {
-        text: '男',
-        status: 'MAN',
-      },
-      WOMAN: {
-        text: '女',
-        status: 'WOMAN',
-      },
-      MIX: {
-        text: '混合',
-        status: 'MIX',
-      },
-      UNKNOWN: {
-        text: '未知',
-        status: 'UNKNOWN',
-      },
-    },
-  },
-  {
-    title: '身份证号',
-    dataIndex: 'idCardNumber',
-    key: 'idCardNumber',
-  },
-  {
-    title: '入学时间',
-    dataIndex: 'registerYear',
-    key: 'registerYear',
-  },
-];
+
 const ApartmentAdmin: React.FC = () => {
+
 
  const{data,loading,error} = useRequest(acquireMyDormitoryUsingGET);
 
@@ -95,14 +35,88 @@ const ApartmentAdmin: React.FC = () => {
     return <div>{error.message}</div>;
   }
 
-  const  exist=data.exist;
+  const  {exist,username} = data;
   if (!exist){
-    return <div>未有住宿信息</div>;
+    return <div>未有{username}住宿信息</div>;
   }
   // @ts-ignore
   const dor = data.dormitory;
   const studentList=data?.dormitory.studentList;
 
+  const columns: ProColumns<StudentResidentItem>[] = [
+    {
+      title: '床位号',
+      dataIndex: 'bedId',
+      key:'bedId'
+    },
+    {
+      title: '学生姓名',
+      dataIndex: 'studentName',
+      key: 'studentName',
+    },
+    {
+      title: '学号',
+      dataIndex: 'studentId',
+      key: 'studentId',
+    }, {
+      title: '学院',
+      dataIndex: 'collegeName',
+      key: 'collegeName',
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: '电话',
+      dataIndex: 'phone',
+      key: 'phone',
+    },{
+      title:'性别',
+      dataIndex: 'gender',
+      key:'gender',
+      valueEnum: {
+        MAN: {
+          text: '男',
+          status: 'MAN',
+        },
+        WOMAN: {
+          text: '女',
+          status: 'WOMAN',
+        },
+        MIX: {
+          text: '混合',
+          status: 'MIX',
+        },
+        UNKNOWN: {
+          text: '未知',
+          status: 'UNKNOWN',
+        },
+      },
+    },
+    {
+      title: '身份证号',
+      dataIndex: 'idCardNumber',
+      key: 'idCardNumber',
+    },
+    {
+      title: '入学时间',
+      dataIndex: 'registerYear',
+      key: 'registerYear',
+    },
+    {
+      title:'操作',
+      dataIndex:'option',
+      render: (_, record) => [
+
+        <a key="checkOut" onClick={()=>{
+          checkOutMyDormitoryUsingPOST()
+        }
+        }>{username===record.studentId&&'退宿'}</a>
+      ],
+    }
+  ];
   return (
     <PageHeaderWrapper title={false}>
       <Descriptions title="公寓信息" bordered>
