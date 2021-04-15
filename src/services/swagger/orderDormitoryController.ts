@@ -2,6 +2,34 @@
 /* eslint-disable */
 import { request } from 'umi';
 
+/** checkInMyDormitory POST /api/apartment/my/checkIn */
+export async function checkInMyDormitoryUsingPOST(
+  params: {
+    // query
+    /** bedId */
+    bedId: number;
+    /** dormitoryId */
+    dormitoryId: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/apartment/my/checkIn', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** checkOutMyDormitory POST /api/apartment/my/checkOut */
+export async function checkOutMyDormitoryUsingPOST(options?: { [key: string]: any }) {
+  return request<API.Message>('/api/apartment/my/checkOut', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
 /** acquireAvailableBuildingNames GET /api/apartment/university/available/building/names */
 export async function acquireAvailableBuildingNamesUsingGET(
   params: {
@@ -60,14 +88,6 @@ export async function acquireAvailableDormitoryUsingGET(
     params: {
       ...params,
     },
-    ...(options || {}),
-  });
-}
-
-/** acquireAvailableGlobalName GET /api/apartment/university/available/global/names */
-export async function acquireAvailableGlobalNameUsingGET(options?: { [key: string]: any }) {
-  return request<API.Message>('/api/apartment/university/available/global/names', {
-    method: 'GET',
     ...(options || {}),
   });
 }

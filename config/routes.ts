@@ -25,6 +25,7 @@
     name: 'auth',
     icon: 'user',
     path: '/auth',
+    access: 'canAdmin',
     routes: [
       {
         name:'auth-user',
@@ -51,6 +52,7 @@
     name: 'university',
     icon: 'user',
     path: '/university',
+    access: 'canAdmin',
     routes: [
       {
         name:'college',
@@ -90,6 +92,7 @@
       {
         name: 'admin',
         icon: 'smile',
+        access: 'canAdmin',
         path: '/apartment/admin',
         routes: [
 
@@ -121,11 +124,13 @@
         name: 'my',
         icon: 'smile',
         path: '/apartment/my',
+        access: 'canOnlyStudent',
         component: './apartment/my',
       },
       {
         name: 'order',
         icon: 'smile',
+        access: 'canOnlyStudent',
         path: '/apartment/order',
         component: './apartment/order',
       },

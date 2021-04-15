@@ -109,7 +109,14 @@ const codeMessage = {
  * @see https://beta-pro.ant.design/docs/request-cn
  */
 const errorHandler = (error: ResponseError) => {
+
   const { response } = error;
+  if (response.status===401){
+    notification.error({
+      message: `权限不足`,
+    });
+    return;
+  }
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -146,6 +153,7 @@ export const request: RequestConfig = {
   errorHandler,
   errorConfig: {
     adaptor: (resData) => {
+
       return {
 
         ...resData,

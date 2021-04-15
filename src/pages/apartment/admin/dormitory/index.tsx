@@ -9,7 +9,7 @@ import DetailDormitory from '@/pages/apartment/admin/dormitory/components/Detail
 
 
 
-const CampusAdmin: React.FC = () => {
+const DormitoryAdmin: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<DormitoryItem>();
   const [detailVisible,handleDetailVisible]=useState<boolean>(false);
   const columns: ProColumns<DormitoryItem>[] = [
@@ -183,4 +183,4 @@ const CampusAdmin: React.FC = () => {
   );
 };
 
-export default CampusAdmin;
+export default DormitoryAdmin;

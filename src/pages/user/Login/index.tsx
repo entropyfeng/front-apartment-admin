@@ -10,7 +10,7 @@ import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-desi
 import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
-
+import Settings from '../../../../config/defaultSettings';
 import styles from './index.less';
 import { accountLoginByJsonUsingPOST } from '@/services/swagger/accountController';
 
@@ -62,6 +62,9 @@ const Login: React.FC = () => {
       const msg = await accountLoginByJsonUsingPOST({ ...values, type });
       if (msg.success === true) {
         message.success('登录成功！');
+
+        // @ts-ignore
+        localStorage.setItem(Settings.authTokenName,msg.data.token);
         await fetchUserInfo();
         goto();
         return;
