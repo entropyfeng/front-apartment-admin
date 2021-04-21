@@ -143,3 +143,63 @@ export async function loginOutUsingPOST(
     ...(options || {}),
   });
 }
+
+/** resetMyEmail PUT /api/account/my/email */
+export async function resetMyEmailUsingPUT(
+  params: {
+    // query
+    /** postPassword */
+    postPassword: string;
+    /** prePassword */
+    prePassword: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/account/my/email', {
+    method: 'PUT',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** resetMyPassword PUT /api/account/my/password */
+export async function resetMyPasswordUsingPUT(
+  params: {
+    // query
+    /** postPassword */
+    postPassword: string;
+    /** prePassword */
+    prePassword: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/account/my/password', {
+    method: 'PUT',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** resetMyPhone PUT /api/account/my/phone */
+export async function resetMyPhoneUsingPUT(
+  params: {
+    // query
+    /** postPhone */
+    postPhone: string;
+    /** prePassword */
+    prePassword: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/account/my/phone', {
+    method: 'PUT',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}

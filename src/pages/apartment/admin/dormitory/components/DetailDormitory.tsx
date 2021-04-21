@@ -7,6 +7,7 @@ import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { checkInMyDormitoryUsingPOST } from '@/services/swagger/orderDormitoryController';
 import { Access, useAccess } from '@@/plugin-access/access';
+import { convertDirection } from '@/utils/myUtil';
 
 interface DetailDormitoryProps {
   modalVisible: boolean;
@@ -150,6 +151,7 @@ const DetailDormitory: React.FC<DetailDormitoryProps> = (props) => {
   // @ts-ignore
   const dor = data.dormitory;
   const studentList=data?.dormitory.studentList;
+  // @ts-ignore
   return (
     <Modal
       width='1000'
@@ -168,7 +170,7 @@ const DetailDormitory: React.FC<DetailDormitoryProps> = (props) => {
         <Descriptions.Item label="楼层">{dor.floor}</Descriptions.Item>
         <Descriptions.Item label="入住性别">{dor.inGender === 'MAN' ? '男' : '女'}</Descriptions.Item>
         <Descriptions.Item label="电梯">{dor.hasElevator ? '有电梯' : '无电梯'}</Descriptions.Item>
-        <Descriptions.Item label="朝向">{dor.dormitoryDirection}</Descriptions.Item>
+        <Descriptions.Item label="朝向">{convertDirection(dor.dormitoryDirection)}</Descriptions.Item>
         <Descriptions.Item label="上次修改时间">{dor.updateTime}</Descriptions.Item>
         <Descriptions.Item label="创建时间">{dor.createTime}</Descriptions.Item>
       </Descriptions>

@@ -52,6 +52,7 @@
     "@ant-design/pro-layout": "^6.15.3",
     "@ant-design/pro-table": "^2.30.8",
     "@ant-design/pro-list": "^1.5.14",
+    "@ant-design/charts": "^1.1.2",
     "@umijs/openapi": "^1.1.14",
     "@umijs/plugin-openapi": "^1.2.0",
     "@umijs/route-utils": "^1.0.36",

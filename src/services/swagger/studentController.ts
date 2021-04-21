@@ -2,6 +2,90 @@
 /* eslint-disable */
 import { request } from 'umi';
 
+/** modifySingleStudent PUT /api/university/student */
+export async function modifySingleStudentUsingPUT(
+  body: API.StudentTo,
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/university/student', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** addSingleStudent POST /api/university/student */
+export async function addSingleStudentUsingPOST(
+  body: API.StudentTo,
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/university/student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** deleteSingleStudent DELETE /api/university/student */
+export async function deleteSingleStudentUsingDELETE(
+  params: {
+    // query
+    /** studentId */
+    studentId: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/university/student', {
+    method: 'DELETE',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** createSingleStudentAccount POST /api/university/student/account */
+export async function createSingleStudentAccountUsingPOST(
+  params: {
+    // query
+    /** studentId */
+    studentId: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/university/student/account', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** deleteSingleStudentAccount DELETE /api/university/student/account */
+export async function deleteSingleStudentAccountUsingDELETE(
+  params: {
+    // query
+    /** studentId */
+    studentId: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/university/student/account', {
+    method: 'DELETE',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** acquireAllStudent GET /api/university/student/all */
 export async function acquireAllStudentUsingGET(options?: { [key: string]: any }) {
   return request<API.Message>('/api/university/student/all', {
@@ -12,12 +96,6 @@ export async function acquireAllStudentUsingGET(options?: { [key: string]: any }
 
 /** insertStudentsFromExcel POST /api/university/student/excel */
 export async function insertStudentsFromExcelUsingPOST(
-  params: {
-    // query
-    roles?: string[];
-    userId?: number;
-    userName?: string;
-  },
   body: {
     /** file */
     file?: string;
@@ -39,9 +117,6 @@ export async function insertStudentsFromExcelUsingPOST(
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-    params: {
-      ...params,
-    },
     data: formData,
     ...(options || {}),
   });
@@ -51,6 +126,26 @@ export async function insertStudentsFromExcelUsingPOST(
 export async function downloadInsertStudentTemplateUsingGET(options?: { [key: string]: any }) {
   return request<API.Message>('/api/university/student/excel/template', {
     method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** modifyStudentPassword PUT /api/university/student/password */
+export async function modifyStudentPasswordUsingPUT(
+  params: {
+    // query
+    /** newPassword */
+    newPassword: string;
+    /** studentId */
+    studentId: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/university/student/password', {
+    method: 'PUT',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }

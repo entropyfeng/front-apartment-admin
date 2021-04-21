@@ -18,8 +18,13 @@ declare namespace API {
     updateTime?: string;
   };
 
+  type CollegeTo = {
+    collegeName?: string;
+    description?: string;
+  };
+
   type CurrentUserVo = {
-    access?: string;
+    access?: string[];
     avatar?: string;
     chinaIdNumber?: string;
     email?: string;
@@ -66,5 +71,16 @@ declare namespace API {
     msg?: string;
     subCode?: number;
     success?: boolean;
+  };
+
+  type StudentTo = {
+    collegeName?: string;
+    email?: string;
+    gender?: string;
+    idCardNumber?: string;
+    phone?: string;
+    registerYear?: string;
+    studentId?: string;
+    studentName?: string;
   };
 }

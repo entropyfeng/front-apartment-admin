@@ -1,17 +1,47 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
-import type { ProColumns } from '@ant-design/pro-table';
+import type { ProColumns , ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { DormitoryItem } from '@/pages/apartment/admin/dormitory/data';
-import { queryAllDormitories } from '@/pages/apartment/admin/dormitory/service';
 import DetailDormitory from '@/pages/apartment/admin/dormitory/components/DetailDormitory';
+import { acquireAllDormitoryUsingGET, deleteSingleDormitoryUsingDELETE } from '@/services/swagger/dormitoryController';
+import { Button, message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 
+import CreateDormitory from '@/pages/apartment/admin/dormitory/components/CreateDormitory';
 
-const DormitoryAdmin: React.FC = () => {
+type DormitoryAdminProps={
+
+  showSearch?: boolean;
+  buildingName?: string;
+}
+
+const handleSingleRemove = async (dormitoryName: string) => {
+  const hide = message.loading('正在删除');
+  if (!dormitoryName) return true;
+  try {
+    await deleteSingleDormitoryUsingDELETE({dormitoryName})
+    hide();
+    message.success('删除成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('删除失败，请重试');
+    return false;
+  }
+};
+
+
+const DormitoryAdmin: React.FC<DormitoryAdminProps> = (props) => {
+  const {buildingName,showSearch}=props;
   const [currentRow, setCurrentRow] = useState<DormitoryItem>();
   const [detailVisible,handleDetailVisible]=useState<boolean>(false);
+  /** 新建窗口的弹窗 */
+  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
+
+  const actionRef = useRef<ActionType>();
   const columns: ProColumns<DormitoryItem>[] = [
     {
       key: 'dormitoryId',
@@ -163,21 +193,58 @@ const DormitoryAdmin: React.FC = () => {
         >
           详情
         </a>,
+        <a
+          key="delete"
+          onClick={() => {
+
+            handleSingleRemove(record.dormitoryName);
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+
+          }}
+        >
+          删除
+        </a>
       ],
     },
   ];
+
+  // @ts-ignore
+  // @ts-ignore
   return (
-    <PageHeaderWrapper>
+    <PageHeaderWrapper title={false}>
       <ProTable<DormitoryItem>
-        search={{
+
+        search={showSearch?   {
           layout: 'vertical',
           defaultCollapsed: false,
-        }}
+        }:false
+        }
+        toolBarRender={() => [
+          <Button
+            type="primary"
+            key="primary"
+            onClick={() => {
+
+              handleModalVisible(true)
+            }}
+          >
+            <PlusOutlined /> 新建寝室
+          </Button>,
+        ]}
         rowKey="dormitoryId"
         headerTitle="公寓管理"
         columns={columns}
-        request={() => queryAllDormitories()}
+        request={() => acquireAllDormitoryUsingGET({buildingName}).then((res) => ({
+          // @ts-ignore
+          data: res.data.dormitories,
+          // @ts-ignore
+          total: res.data.dormitories.length,
+          success: res.success,
+        }))}
       />
+      <CreateDormitory onVisibleChange={handleModalVisible} visible={createModalVisible}/>
       {detailVisible&&currentRow!=null&& <DetailDormitory modalVisible={detailVisible} onCancel={()=>handleDetailVisible(false)} values={currentRow}/>}
     </PageHeaderWrapper>
   );

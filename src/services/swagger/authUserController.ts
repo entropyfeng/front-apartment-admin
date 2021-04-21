@@ -2,8 +2,8 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** acquireAllUser GET /api/auth/user/all */
-export async function acquireAllUserUsingGET(
+/** acquireAllAuthUser GET /api/auth/user/all */
+export async function acquireAllAuthUserUsingGET(
   params: {
     // query
     /** currentPage */

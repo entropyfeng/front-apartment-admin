@@ -1,6 +1,6 @@
-export type DepartmentItem = {
-  departmentId: string;
-  departmentName: string;
+export type CollegeItem = {
+  collegeId: string;
+  collegeName: string;
   description: string;
   createTime: Date;
   updateTime: Date;

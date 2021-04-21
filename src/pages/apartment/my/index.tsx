@@ -1,7 +1,8 @@
 import React from 'react';
 import {  PageHeaderWrapper } from '@ant-design/pro-layout';
 
-import ProTable, { ProColumns } from '@ant-design/pro-table';
+import type { ProColumns } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
 import { useRequest } from '@@/plugin-request/request';
 import { acquireMyDormitoryUsingGET } from '@/services/swagger/dormitoryController';
 import { Descriptions } from 'antd';
@@ -35,6 +36,7 @@ const ApartmentAdmin: React.FC = () => {
     return <div>{error.message}</div>;
   }
 
+  // @ts-ignore
   const  {exist,username} = data;
   if (!exist){
     return <div>未有{username}住宿信息</div>;

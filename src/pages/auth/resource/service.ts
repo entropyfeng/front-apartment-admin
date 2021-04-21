@@ -1,25 +1,17 @@
 
 
 import type { AuthResourceParams } from '@/pages/auth/resource/data';
-import { request } from 'umi';
+import { acquireAllAuthResourceUsingGET } from '@/services/swagger/authResourceController';
 
 export async function queryAllResource(params?: AuthResourceParams) {
 
-  return  request('/resource/all', {
-    data: {
-      currentPage: params?.currentPage,
-      pageSize: params?.pageSize,
-    },
-    responseType: 'json',
-    method:'GET'
-  }).then(response => ({
+  return acquireAllAuthResourceUsingGET().then(response => ({
 
-    data: response.params.auth_resources,
-    total: response.params.auth_resources.length,
+    data: response.data?.resources,
+    total: response.data?.resources.length,
     success: true,
-    pageSize: params?.pageSize,
-    current: params?.currentPage,
   }));
+
 
 }
 

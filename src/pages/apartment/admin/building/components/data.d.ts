@@ -16,8 +16,3 @@ export type DormitoryItem={
   updateTime: Date;
 
 }
-
-export type DormitoryDetailItem={
-
-
-}

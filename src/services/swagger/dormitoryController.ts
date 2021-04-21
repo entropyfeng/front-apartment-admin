@@ -35,10 +35,53 @@ export async function acquireDormitoryUsingGET(
   });
 }
 
+/** addSingleDormitory POST /api/apartment/dormitory */
+export async function addSingleDormitoryUsingPOST(
+  body: API.DormitoryVO,
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/apartment/dormitory', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** deleteSingleDormitory DELETE /api/apartment/dormitory */
+export async function deleteSingleDormitoryUsingDELETE(
+  params: {
+    // query
+    /** dormitoryName */
+    dormitoryName: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.Message>('/api/apartment/dormitory', {
+    method: 'DELETE',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** acquireAllDormitory GET /api/apartment/dormitory/all */
-export async function acquireAllDormitoryUsingGET(options?: { [key: string]: any }) {
+export async function acquireAllDormitoryUsingGET(
+  params: {
+    // query
+    /** buildingName */
+    buildingName: string;
+  },
+  options?: { [key: string]: any },
+) {
   return request<API.Message>('/api/apartment/dormitory/all', {
     method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }
@@ -47,24 +90,6 @@ export async function acquireAllDormitoryUsingGET(options?: { [key: string]: any
 export async function acquireMyDormitoryUsingGET(options?: { [key: string]: any }) {
   return request<API.Message>('/api/apartment/dormitory/my', {
     method: 'GET',
-    ...(options || {}),
-  });
-}
-
-/** acquireResidentStudent GET /api/apartment/resident */
-export async function acquireResidentStudentUsingGET(
-  params: {
-    // query
-    /** dormitoryId */
-    dormitoryId: number;
-  },
-  options?: { [key: string]: any },
-) {
-  return request<API.Message>('/api/apartment/resident', {
-    method: 'GET',
-    params: {
-      ...params,
-    },
     ...(options || {}),
   });
 }

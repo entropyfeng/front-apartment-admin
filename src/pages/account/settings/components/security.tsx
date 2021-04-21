@@ -1,88 +1,77 @@
-import { FormattedMessage, formatMessage } from 'umi';
-import React, { Component } from 'react';
 
-import { List } from 'antd';
+import React, { Component, useState } from 'react';
+
+import { List, Modal } from 'antd';
+import { useModel } from '@@/plugin-model/useModel';
+import ModifyMyPasswordView from '@/components/Util/modifyMyPassword';
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
-const passwordStrength = {
-  strong: (
-    <span className="strong">
-      <FormattedMessage id="accountandsettings.security.strong" defaultMessage="Strong" />
-    </span>
-  ),
-  medium: (
-    <span className="medium">
-      <FormattedMessage id="accountandsettings.security.medium" defaultMessage="Medium" />
-    </span>
-  ),
-  weak: (
-    <span className="weak">
-      <FormattedMessage id="accountandsettings.security.weak" defaultMessage="Weak" />
-      Weak
-    </span>
-  ),
-};
 
-class SecurityView extends Component {
-  getData = () => [
+
+const SecurityView: React.FC = () => {
+
+  const { initialState,refresh } = useModel('@@initialState');
+  const [isRestPasswordVisible, setRestPasswordVisible] = useState<boolean>(false);
+
+  // @ts-ignore
+  const {currentUser}=initialState;
+
+  const getData = () => [
     {
-      title: formatMessage({ id: 'accountandsettings.security.password' }, {}),
-      description: (
-        <>
-          {formatMessage({ id: 'accountandsettings.security.password-description' })}：
-          {passwordStrength.strong}
-        </>
-      ),
+      title: '账户密码',
+      description: '用户名',
       actions: [
-        <a key="Modify">
-          <FormattedMessage id="accountandsettings.security.modify" defaultMessage="Modify" />
+        <a key="Modify" onClick={()=>{
+          setRestPasswordVisible(true)
+        }}>
+          修改
         </a>,
       ],
     },
     {
-      title: formatMessage({ id: 'accountandsettings.security.phone' }, {}),
-      description: `${formatMessage(
-        { id: 'accountandsettings.security.phone-description' },
-        {},
-      )}：138****8293`,
+      title: '当前手机',
+      description: `已绑定手机: ${currentUser.phone}`,
       actions: [
-        <a key="Modify">
-          <FormattedMessage id="accountandsettings.security.modify" defaultMessage="Modify" />
+        <a  key="Modify" onClick={()=>{
+
+        }}>
+       修改
         </a>,
       ],
     },
     {
-      title: formatMessage({ id: 'accountandsettings.security.email' }, {}),
-      description: `${formatMessage(
-        { id: 'accountandsettings.security.email-description' },
-        {},
-      )}：ant***sign.com`,
+      title: '当前邮箱',
+      description: `已绑定邮箱: ${currentUser.email}`,
       actions: [
         <a key="Modify">
-          <FormattedMessage id="accountandsettings.security.modify" defaultMessage="Modify" />
+        修改
         </a>,
       ],
     },
 
   ];
 
-  render() {
-    const data = this.getData();
-    return (
-      <>
-        <List<Unpacked<typeof data>>
-          itemLayout="horizontal"
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item actions={item.actions}>
-              <List.Item.Meta title={item.title} description={item.description} />
-            </List.Item>
-          )}
-        />
-      </>
-    );
-  }
+  const data = getData();
+  return (
+    <>
+      <List<Unpacked<typeof data>>
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item actions={item.actions}>
+            <List.Item.Meta title={item.title} description={item.description} />
+          </List.Item>
+        )}
+      />
+      <Modal title="修改密码" visible={isRestPasswordVisible} footer={null} onCancel={()=>{
+        setRestPasswordVisible(false)
+      }} onOk={()=>{setRestPasswordVisible(false)}}>
+        <ModifyMyPasswordView setVisible={setRestPasswordVisible}/>
+      </Modal>
+    </>
+  );
 }
+
 
 export default SecurityView;

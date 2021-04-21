@@ -1,3 +1,10 @@
+export type AddDormitoryItem={
+  inGender: 'MAN'|'WOMAN'|'MIX'|'UNKNOWN';
+  dormitoryName: string;
+  totalCapacity: number;
+  dormitoryDirection: 'UNKNOWN'|'WEST'|'EAST'|'NORTH'|'SOUTH';
+  floor: number;
+}
 
 export type BuildingItem = {
 
@@ -15,3 +22,4 @@ export type BuildingItem = {
   createTime: Date;
   updateTime: Date;
 }
+

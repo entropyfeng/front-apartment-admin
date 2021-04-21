@@ -3,15 +3,15 @@ import { useRequest } from '@@/plugin-request/request';
 import { acquireAvailableCampusNamesUsingGET } from '@/services/swagger/orderDormitoryController';
 import MyCascade from '@/pages/apartment/order/components/DetailCascade';
 
- interface SelectBuildingCascadeProps{
+interface SelectBuildingCascadeProps {
 
-   setBuildingName: (buildingName: string) => void;
- }
+  setBuildingName: (buildingName: string) => void;
+}
+
 const SelectBuildingCascade: React.FC<SelectBuildingCascadeProps> = (props) => {
 
-
-   const {setBuildingName}=props;
-  const {data,error,loading}=useRequest(acquireAvailableCampusNamesUsingGET)
+  const { setBuildingName } = props;
+  const { data, error, loading } = useRequest(acquireAvailableCampusNamesUsingGET);
 
 
   if (loading) {
@@ -22,7 +22,7 @@ const SelectBuildingCascade: React.FC<SelectBuildingCascadeProps> = (props) => {
   }
 
 // @ts-ignore
-  return (<MyCascade names={data.names} setBuildingName={setBuildingName}/>);
-}
+  return (<MyCascade names={data.names} setBuildingName={setBuildingName} />);
+};
 
 export default SelectBuildingCascade;

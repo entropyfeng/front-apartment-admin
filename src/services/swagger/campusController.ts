@@ -2,20 +2,14 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** test GET /api/ */
-export async function testUsingGET(options?: { [key: string]: any }) {
-  return request<API.Message>('/api/', {
-    method: 'GET',
-    ...(options || {}),
-  });
-}
-
-/** addCampus POST /api/apartment/campus */
-export async function addCampusUsingPOST(
+/** addSingleCampus POST /api/apartment/campus */
+export async function addSingleCampusUsingPOST(
   params: {
     // query
     /** campusName */
     campusName: string;
+    /** description */
+    description: string;
   },
   options?: { [key: string]: any },
 ) {
@@ -28,8 +22,8 @@ export async function addCampusUsingPOST(
   });
 }
 
-/** deleteCampus DELETE /api/apartment/campus */
-export async function deleteCampusUsingDELETE(
+/** deleteSingleCampus DELETE /api/apartment/campus */
+export async function deleteSingleCampusUsingDELETE(
   params: {
     // query
     /** campusName */
@@ -49,6 +43,14 @@ export async function deleteCampusUsingDELETE(
 /** acquireAllCampus GET /api/apartment/campus/all */
 export async function acquireAllCampusUsingGET(options?: { [key: string]: any }) {
   return request<API.Message>('/api/apartment/campus/all', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** acquireCurrentCampusNames GET /api/apartment/campus/names */
+export async function acquireCurrentCampusNamesUsingGET(options?: { [key: string]: any }) {
+  return request<API.Message>('/api/apartment/campus/names', {
     method: 'GET',
     ...(options || {}),
   });

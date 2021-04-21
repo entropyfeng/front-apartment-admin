@@ -10,6 +10,8 @@ import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import CreateForm from '@/pages/auth/role/components/CreateForm';
 
 import DetailForm from '@/pages/auth/role/components/DetailForm';
+import { acquireAllCollegeUsingGET } from '@/services/swagger/collegeController';
+import { acquireAllAuthRoleUsingGET } from '@/services/swagger/authRoleController';
 
 
 /**
@@ -130,6 +132,13 @@ const TableList: React.FC<{}> = () => {
     <ProTable<AuthRoleItem>
       search={false}
       headerTitle="角色控制"
+      request={() => acquireAllAuthRoleUsingGET().then(res=>({
+        // @ts-ignore
+        data: res.data.roles,
+        // @ts-ignore
+        total: res.data.roles.length,
+        success: res.success
+      }))}
       actionRef={actionRef}
       columns={columns}
       rowKey="authRoleId"
@@ -162,7 +171,7 @@ const TableList: React.FC<{}> = () => {
           </Dropdown>
         ),
       ]}
-      request={(params, sorter, filter) => queryAllRole({ ...params, sorter, filter })}
+
     />
     <CreateForm onCancel={() => handleModalVisible(false)} modalVisible={createModalVisible}>
       <ProTable<AuthRoleItem, AuthRoleItem>

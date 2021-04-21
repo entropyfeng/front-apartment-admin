@@ -6,7 +6,7 @@ import { useRequest } from '@@/plugin-request/request';
 import OrderDormitory from '@/pages/apartment/order/components/OrderDormitory';
 
 
-const ApartmentAdmin: React.FC = () => {
+const OrderAdmin: React.FC = () => {
 
   const {data,error,loading}=useRequest(acquireMyDormitoryStatusUsingGET);
   if (loading) {
@@ -25,4 +25,4 @@ const ApartmentAdmin: React.FC = () => {
 
 };
 
-export default ApartmentAdmin;
+export default OrderAdmin;
