@@ -31,9 +31,6 @@ class Settings extends Component<SettingsProps, SettingsState> {
   constructor(props: SettingsProps) {
     super(props);
     const menuMap = {
-      base: (
-        <FormattedMessage id="accountandsettings.menuMap.basic" defaultMessage="Basic Settings" />
-      ),
       security: (
         <FormattedMessage
           id="accountandsettings.menuMap.security"
@@ -102,8 +99,8 @@ class Settings extends Component<SettingsProps, SettingsState> {
   renderChildren = () => {
     const { selectKey } = this.state;
     switch (selectKey) {
-      case 'base':
-        return <BaseView />;
+     /* case 'base':
+        return <BaseView />;*/
       case 'security':
         return <SecurityView />;
       default:

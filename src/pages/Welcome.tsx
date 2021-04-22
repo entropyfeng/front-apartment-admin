@@ -1,29 +1,54 @@
 import React from 'react';
-import { Line } from '@ant-design/charts';
+import {Bar} from '@ant-design/charts';
+import {acquireApartmentBaseInfoUsingGET} from "@/services/swagger/apartmentInfoController";
+import {useRequest} from "@@/plugin-request/request";
+import {PageLoading} from "@ant-design/pro-layout";
 
-const Page: React.FC = () => {
-  const data = [
-    { year: '1991', value: 3 },
-    { year: '1992', value: 4 },
-    { year: '1993', value: 3.5 },
-    { year: '1994', value: 5 },
-    { year: '1995', value: 4.9 },
-    { year: '1996', value: 6 },
-    { year: '1997', value: 7 },
-    { year: '1998', value: 9 },
-    { year: '1999', value: 13 },
-  ];
+type ApartmentBaseInfo = {
 
-  const config = {
-    data,
-    height: 400,
-    xField: 'year',
-    yField: 'value',
-    point: {
-      size: 5,
-      shape: 'diamond',
-    },
+  bedNum: number;
+  womanBedNum: number;
+  manBedNum: number;
+  buildingNum: number;
+  campusNum: number;
+  campusGroupNum: number;
+  dormitoryNum: number;
+  currentResident: number;
+
+}
+const WelcomePage: React.FC = () => {
+
+  const {data , loading, error} = useRequest(() => acquireApartmentBaseInfoUsingGET());
+  if (loading) {
+    return <PageLoading/>
+  }
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  const myData=data as ApartmentBaseInfo;
+  const bedInfo=[{
+    type:'男生床位',
+    value:myData.manBedNum
+  },{
+    type:'女生床位',
+    value:myData.womanBedNum
+  },{
+    type:'总床位',
+    value: myData.bedNum
+  },{
+    type:'当前入住人数',
+    value: myData.currentResident
+  }];
+
+  const bedConfig = {
+    data: bedInfo,
+    xField: 'value',
+    yField: 'type',
+    seriesField: 'type',
+    legend: { position: 'top-left' },
   };
-  return <Line {...config} />;
+  return <Bar {...bedConfig} />;
+
 };
-export default Page;
+export default WelcomePage;

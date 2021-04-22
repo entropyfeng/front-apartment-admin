@@ -16,6 +16,7 @@
     ],
   },
   {
+    access: 'canAdmin',
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',
